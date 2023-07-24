@@ -4,10 +4,10 @@ This is a *really* simple script I wrote so I could automatically tag torrents i
 
 ## Usage
 
-`python torrent_tags.py` *qbit_url* *title_search_string* *qbit_tag*
+`python torrent_tags.py` *qbit_url* *title_search_regex* *qbit_tag*
 
 - *qbit_url:* The url to your qBittorrent WebUI (example: `http://localhost:10095`)
-- *title_search_string*: The string you want to search for in the names of your torrents. For example if you want to tag all releases from CoolGuy35, then you would use `"CoolGuy35"`
+- *title_search_regex*: The regex you want to search for in the names of your torrents (currently no flags are supported, and `ignorecase` is on by default). For example if you want to tag all releases from CoolGuy35, then you would use `"CoolGuy35"`
 - *qbit_tag*: Name of the tag you want to add to all torrents that contain the *title_search_string*. (example: `"CoolGuy"`) **NOTE**: Currently this tag has to exist in qBittorrent before running this script. It will cause an error if the tag you give here doesn't exist.
 
 ## How to automate
@@ -16,6 +16,7 @@ Currently I just have this script run on a cron job on the same TrueNAS machine 
 
 ## Future Improvements
 
-- Have the *title_search_string* be a regular expression instead of just a string
+- ~~Have the *title_search_string* be a regular expression instead of just a string~~
+    - Add the abilities to pass flags (currently the `ignorecase` flag is on by default)
 - Add the ability to give multiple tags and multiple search expressions 
 - Add the ability to give login creds for qBittorrent

@@ -2,20 +2,21 @@ import sys
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError
 import json
+import re
 
 qbitUrl = sys.argv[1]
 if qbitUrl[-1] == "/":
     qbitUrl = qbitUrl[:-1]
-nameSearch = sys.argv[2]
+nameRegex = sys.argv[2]
 tag = sys.argv[3]
 
 with urlopen(qbitUrl + "/api/v2/torrents/info") as response:
     jsonObject = json.loads(response.read().decode("utf-8"))
 
-def getFiltedHashList(torrentList, nameSearch):
+def getFiltedHashList(torrentList, nameRegex):
     filteredHashes = []
     for torrent in torrentList:
-        if nameSearch in torrent["name"]:
+        if re.search(nameRegex, torrent["name"], flags=re.IGNORECASE) != None:
             filteredHashes.append(torrent["hash"])
     
     return filteredHashes
@@ -31,7 +32,7 @@ def getAddTagsBody(hashList, tag):
     return bodyString
 
 
-filteredHashes = getFiltedHashList(jsonObject, nameSearch)
+filteredHashes = getFiltedHashList(jsonObject, nameRegex)
 bodyString = getAddTagsBody(filteredHashes, tag).encode("utf-8")
 
 postReq = Request((qbitUrl + "/api/v2/torrents/addTags"), method="POST")
