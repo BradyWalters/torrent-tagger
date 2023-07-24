@@ -12,7 +12,7 @@ This is a *really* simple script I wrote so I could automatically tag torrents i
 
 ## How to automate
 
-Currently I just have this script run on a cron job on the same TrueNAS machine I have running qBittorrent on.
+Currently I just have this script run on a cron job on the same [TrueNAS](https://github.com/truenas/) machine I have running qBittorrent on.
 
 ## Future Improvements
 
